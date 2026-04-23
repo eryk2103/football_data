@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Stadium index{% endblock %}
+
+{% block body %}
+    <h1>Stadium index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Country</th>
+                <th>City</th>
+                <th>Capacity</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for stadium in stadiums %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ stadium.name }}</td>
+                <td>{{ stadium.country }}</td>
+                <td>{{ stadium.city }}</td>
+                <td>{{ stadium.capacity }}</td>
+                <td>
+                    <a href="{{ path('app_stadium_show', {'id': stadium.id}) }}">show</a>
+                    <a href="{{ path('app_stadium_edit', {'id': stadium.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_stadium_new') }}">Create new</a>
+{% endblock %}

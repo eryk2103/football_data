@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fixture index{% endblock %}
+
+{% block body %}
+    <h1>Fixture index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Home</th>
+            <th>Away</th>
+            <th>Datetime</th>
+            <th>Status</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for fixture in fixtures %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ fixture.homeTeam.shortName }}</td>
+                <td>{{ fixture.awayTeam.shortName }}</td>
+                <td>{{ fixture.datetime ? fixture.datetime|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ fixture.status.name }}</td>
+                <td>
+                    <a href="{{ path('app_fixture_show', {'id': fixture.id}) }}">show</a>
+                    <a href="{{ path('app_fixture_edit', {'id': fixture.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {{ include('shared/pagination.html.twig') }}
+    <a href="{{ path('app_fixture_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fixture{% endblock %}
+
+{% block body %}
+    <h1>Fixture</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ fixture.id }}</td>
+            </tr>
+            <tr>
+                <th>HomeScore</th>
+                <td>{{ fixture.homeScore }}</td>
+            </tr>
+            <tr>
+                <th>AwayScore</th>
+                <td>{{ fixture.awayScore }}</td>
+            </tr>
+            <tr>
+                <th>Datetime</th>
+                <td>{{ fixture.datetime ? fixture.datetime|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ fixture.status.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_fixture_index') }}">back to list</a>
+
+    <a href="{{ path('app_fixture_edit', {'id': fixture.id}) }}">edit</a>
+
+    {{ include('fixture/_delete_form.html.twig') }}
+{% endblock %}
