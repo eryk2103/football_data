@@ -3,6 +3,7 @@
 namespace App\DTO;
 
 use Symfony\Component\Validator\Constraints as Assert;
+
 class PaginationDTO
 {
     public function __construct(
@@ -13,5 +14,7 @@ class PaginationDTO
         #[Assert\NotBlank]
         #[Assert\Positive]
         public int $limit = 20,
-    ) {}
+    )
+    {
+    }
 }
