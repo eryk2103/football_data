@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/club')]
+#[Route('/admin/club')]
 final class ClubController extends AbstractController
 {
     #[Route(name: 'app_club_index', methods: ['GET'])]

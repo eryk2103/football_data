@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\HttpKernel\Attribute\MapQueryString;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/fixture')]
+#[Route('/admin/fixture')]
 final class FixtureController extends AbstractController
 {
     #[Route(name: 'app_fixture_index', methods: ['GET'])]
