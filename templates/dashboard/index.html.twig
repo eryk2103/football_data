@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>Dashboard</h1>
+    {% if invalidFixtures %}
+        <div class="alert alert-danger">
+            <h3>Required action</h3>
+            <ul>
+                {% for fixture in invalidFixtures %}
+                    <li class="row mb-3">
+                        <div class="col-5">
+                            {{ fixture.homeTeam.shortName }} - {{ fixture.awayTeam.shortName }}
+                        </div>
+                        <div class="col-5 ">
+                            <div class="row">
+                                <div class="col-6">
+                                    {{ fixture.datetime|date('Y-m-d') }}
+                                </div>
+                                <div class="col-6">
+                                    {{ fixture.datetime|date('H:i') }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <a href="{{ path('app_fixture_edit', {id: fixture.id}) }}">Update</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <h3>Upcoming fixtures</h3>
+    <ul>
+        {% for fixture in upcomingFixtures %}
+            <li class="row mb-3">
+                <div class="col-5">
+                    {{ fixture.homeTeam.shortName }} - {{ fixture.awayTeam.shortName }}
+                </div>
+                <div class="col-5 ">
+                    <div class="row">
+                        <div class="col-6">
+                            {{ fixture.datetime|date('Y-m-d') }}
+                        </div>
+                        <div class="col-6">
+                            {{ fixture.datetime|date('H:i') }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <a href="{{ path('app_fixture_edit', {id: fixture.id}) }}">Update</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    {% if fixturesWithoutDate %}
+        <h3>TBC fixtures</h3>
+        <ul>
+            {% for fixture in fixturesWithoutDate %}
+                <li class="row mb-3">
+                    <div class="col-5">
+                        {{ fixture.homeTeam.shortName }} - {{ fixture.awayTeam.shortName }}
+                    </div>
+                    <div class="col-5 ">
+                        <div class="row">
+                            <div class="col-6">
+                                ----------
+                            </div>
+                            <div class="col-6">
+                                --:--
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <a href="{{ path('app_fixture_edit', {id: fixture.id}) }}">Update</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

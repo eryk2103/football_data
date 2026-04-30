@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Fixture;
+use App\Enum\FixtureStatus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -14,6 +15,30 @@ class FixtureRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Fixture::class);
+    }
+
+    public function findGtByDate(\DateTime $date, int $max = 10): array
+    {
+        return $this->createQueryBuilder('f')
+            ->where('f.datetime > :date')
+            ->setParameter('date', new \DateTime())
+            ->orderBy('f.datetime', 'ASC')
+            ->setMaxResults($max)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findInvalid(int $max = 20): array
+    {
+        return $this->createQueryBuilder('f')
+            ->where('f.status = :status')
+            ->setParameter('status', FixtureStatus::SCHEDULED)
+            ->andWhere('f.datetime < :date')
+            ->setParameter('date', new \DateTime())
+            ->orderBy('f.datetime', 'ASC')
+            ->setMaxResults($max)
+            ->getQuery()
+            ->getResult();
     }
 
     public function findAllPaginated(int $page, int $limit): array
